@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.room302.shop.dao.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="com.room302.shop.model.SysRole">
+    <id column="roleId" jdbcType="INTEGER" property="roleid" />
+    <result column="available" jdbcType="BIT" property="available" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    roleId, available, description, role
+  </sql>
+  <sql id="Base_Column_List2">
+    r.roleId, r.available, r.description, r.role
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where roleId = #{roleid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_role
+    where roleId = #{roleid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.room302.shop.model.SysRole">
+    insert into sys_role (roleId, available, description, 
+      role)
+    values (#{roleid,jdbcType=INTEGER}, #{available,jdbcType=BIT}, #{description,jdbcType=VARCHAR}, 
+      #{role,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.room302.shop.model.SysRole">
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleid != null">
+        roleId,
+      </if>
+      <if test="available != null">
+        available,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="available != null">
+        #{available,jdbcType=BIT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.room302.shop.model.SysRole">
+    update sys_role
+    <set>
+      <if test="available != null">
+        available = #{available,jdbcType=BIT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where roleId = #{roleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.room302.shop.model.SysRole">
+    update sys_role
+    set available = #{available,jdbcType=BIT},
+      description = #{description,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR}
+    where roleId = #{roleid,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectPermissionByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+    <include refid="Base_Column_List2" />
+        FROM
+	    sys_user u
+	    inner JOIN sys_user_role ur ON u.userId = ur.userId
+	    LEFT JOIN sys_role r on ur.roleId = r.roleId
+        WHERE
+	    u.uname = #{userName}
+  </select>
+</mapper>

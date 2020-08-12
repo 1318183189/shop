@@ -1,0 +1,78 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /shop
+
+spring:
+  datasource:
+    username: root
+    password: 1318183189
+    url: jdbc:mysql://47.92.137.1:3306/shop?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initial-size: 8
+    min-idle: 1
+    max-active: 20
+    max-wait: 60000
+    time-between-eviction-runsMillis: 60000
+    min-evictable-idle-timeMillis: 300000
+    validation-query: select 1 FROM DUAL
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    pool-prepared-statements: true
+    max-open-prepared-statements: 20
+    max-pool-prepared-statement-per-connection-size: 20
+    filters: stat
+    connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    use-global-data-source-stat: true
+  http:
+    charset: UTF-8
+    enabled: true
+    force: true
+
+  redis:
+    host: 47.92.137.1
+    port: 6379
+    password: 1318183189
+    timeout: 5000
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+  mvc:
+    throw-exception-if-no-handler-found=true:mybatis:
+  mapper-locations: classpath:com/room302/shop/dao/*Mapper.xml
+  type-aliases-package: com.room302.model
+
+
+  mail:
+    host: smtp.qq.com
+    username: 1318183189@qq.com
+    password:  fyxtgrumlhmvfgje
+    properties.mail.smtp.port: 465
+    from: 1318183189@qq.com
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true
+    default-encoding: utf-8
+
+#showSql
+logging:
+  level:
+    com.room302.shop.dao: debug
+    org.springfromework.web: info
+    com.room302.shop: info
+
+  pattern:
+    console: '%d - %-5level [%thread] %logger{15} - %msg%n'
+  file:
+    path: logs/shop.log
+
+
+
+
+

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.room302.shop.dao.UserLoginLogMapper">
+  <resultMap id="BaseResultMap" type="com.room302.shop.model.UserLoginLog">
+    <id column="uuid" jdbcType="INTEGER" property="uuid" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+    <result column="login_start_time" jdbcType="TIMESTAMP" property="loginStartTime" />
+    <result column="exit_time" jdbcType="TIMESTAMP" property="exitTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uuid, user_id, login_ip, login_start_time, exit_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_login_log
+    where uuid = #{uuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_login_log
+    where uuid = #{uuid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.room302.shop.model.UserLoginLog">
+    insert into user_login_log (uuid, user_id, login_ip, 
+      login_start_time, exit_time)
+    values (#{uuid,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{loginIp,jdbcType=VARCHAR}, 
+      #{loginStartTime,jdbcType=TIMESTAMP}, #{exitTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.room302.shop.model.UserLoginLog">
+    insert into user_login_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="loginIp != null">
+        login_ip,
+      </if>
+      <if test="loginStartTime != null">
+        login_start_time,
+      </if>
+      <if test="exitTime != null">
+        exit_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null">
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginStartTime != null">
+        #{loginStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exitTime != null">
+        #{exitTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.room302.shop.model.UserLoginLog">
+    update user_login_log
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null">
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loginStartTime != null">
+        login_start_time = #{loginStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="exitTime != null">
+        exit_time = #{exitTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where uuid = #{uuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.room302.shop.model.UserLoginLog">
+    update user_login_log
+    set user_id = #{userId,jdbcType=INTEGER},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      login_start_time = #{loginStartTime,jdbcType=TIMESTAMP},
+      exit_time = #{exitTime,jdbcType=TIMESTAMP}
+    where uuid = #{uuid,jdbcType=INTEGER}
+  </update>
+</mapper>
