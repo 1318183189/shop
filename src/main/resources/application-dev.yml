@@ -8,7 +8,7 @@ server:
 spring:
   datasource:
     username: root
-    password: 1318183189
+    password: ***
     url: jdbc:mysql://47.92.137.1:3306/shop?useUnicode=true&characterEncoding=utf-8&useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -36,7 +36,7 @@ spring:
   redis:
     host: 47.92.137.1
     port: 6379
-    password: 1318183189
+    password: ***
     timeout: 5000
     lettuce:
       pool:
@@ -52,7 +52,7 @@ spring:
   mail:
     host: smtp.qq.com
     username: 1318183189@qq.com
-    password:  fyxtgrumlhmvfgje
+    password:  ***
     properties.mail.smtp.port: 465
     from: 1318183189@qq.com
     properties.mail.smtp.starttls.enable: true
